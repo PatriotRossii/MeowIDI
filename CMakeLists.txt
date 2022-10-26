@@ -9,14 +9,15 @@ endif()
 include(cmake/CPM.cmake)
 CPMAddPackage("gh:FluidSynth/fluidsynth#v2.3.0")
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets UiTools REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 add_executable(meowidi
+	meowidi/main_window.cpp
 	meowidi/main.cpp
 )
 
-target_link_libraries(meowidi Qt5::Widgets libfluidsynth)
+target_link_libraries(meowidi Qt5::Widgets Qt5::UiTools libfluidsynth)
