@@ -1,5 +1,7 @@
 # MeowIDI
 
+[![OHLOH Project Stats](https://www.openhub.net/p/MeowIDI/widgets/project_thin_badge?format=gif)](https://www.openhub.net/p/MeowIDI)
+
 MeowIDI is an open-source MIDI player.
 
 ## License
