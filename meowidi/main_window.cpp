@@ -43,6 +43,7 @@ void MainWindow::on_actionPlay_triggered() {
 
 void MainWindow::on_actionStop_triggered() {
 	fluid_player_stop(player);
+	fluid_player_seek(player, 0);
 }
 
 void MainWindow::on_actionExit_triggered() {
