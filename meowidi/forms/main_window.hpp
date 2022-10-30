@@ -18,6 +18,9 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
+#include <QTranslator>
+#include <QKeySequence>
+
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
@@ -46,18 +49,29 @@ public:
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
-        actionVisit_Website = new QAction(MainWindow);
+
+        actionVisit_Website = new QAction(QObject::tr("&Visit Website"), MainWindow);
         actionVisit_Website->setObjectName(QString::fromUtf8("actionVisit_Website"));
-        actionAbout = new QAction(MainWindow);
+
+        actionAbout = new QAction(QObject::tr("&About"), MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
-        actionOpen = new QAction(MainWindow);
+
+        actionOpen = new QAction(QObject::tr("&Open"), MainWindow);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
-        actionPlay = new QAction(MainWindow);
+        actionOpen->setShortcuts(QKeySequence::Open);
+
+        actionPlay = new QAction(QObject::tr("&Play"), MainWindow);
         actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
-        actionStop = new QAction(MainWindow);
+        actionPlay->setShortcut(QKeySequence(Qt::Key_MediaPlay));
+
+        actionStop = new QAction(QObject::tr("&Stop"), MainWindow);
         actionStop->setObjectName(QString::fromUtf8("actionStop"));
-        actionExit = new QAction(MainWindow);
+        actionStop->setShortcut(QKeySequence(Qt::Key_MediaStop));
+
+        actionExit = new QAction(QObject::tr("&Exit"), MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
+        actionExit->setShortcuts(QKeySequence::Quit);
+
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
@@ -95,14 +109,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MeowIDI", nullptr));
-        actionVisit_Website->setText(QCoreApplication::translate("MainWindow", "Visit Website", nullptr));
-        actionAbout->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
-        actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
-        actionPlay->setText(QCoreApplication::translate("MainWindow", "Play", nullptr));
-        actionStop->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
-        actionExit->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
-        menuFiles->setTitle(QCoreApplication::translate("MainWindow", "Files", nullptr));
-        menuHelp->setTitle(QCoreApplication::translate("MainWindow", "Help", nullptr));
+        menuFiles->setTitle(QCoreApplication::translate("MainWindow", "&Files", nullptr));
+        menuHelp->setTitle(QCoreApplication::translate("MainWindow", "&Help", nullptr));
     } // retranslateUi
 
 };
