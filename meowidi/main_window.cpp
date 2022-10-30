@@ -34,7 +34,9 @@ void MainWindow::on_actionOpen_triggered() {
 	std::string fileName = QFileDialog::getOpenFileName(
 		this, "Open midi file", "/home", "Midi files (*.mid *.midi)"
 	).toStdString();
-	fluid_player_add(player, fileName.c_str());
+	if (!fileName.empty()) {
+		fluid_player_add(player, fileName.c_str());
+	}
 }
 
 void MainWindow::on_actionPlay_triggered() {
