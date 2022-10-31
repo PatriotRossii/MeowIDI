@@ -1,130 +1,88 @@
-/********************************************************************************
-** Form generated from reading UI file 'main_windowavCHNC.ui'
-**
-** Created by: Qt User Interface Compiler version 5.15.3
-**
-** WARNING! All changes made in this file will be lost when recompiling UI file!
-********************************************************************************/
+#pragma once
 
-#ifndef MAIN_WINDOWAVCHNC_H
-#define MAIN_WINDOWAVCHNC_H
-
-#include <QtCore/QVariant>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
-
-#include <QTranslator>
+#include <QApplication>
 #include <QKeySequence>
+#include <QMainWindow>
+#include <QTranslator>
+#include <QStatusBar>
+#include <QMenuBar>
+#include <QVariant>
+#include <QWidget>
+#include <QAction>
+#include <QMenu>
 
-QT_BEGIN_NAMESPACE
+namespace Ui {
 
-class Ui_MainWindow
+class MainWindow
 {
 public:
-    QAction *actionVisit_Website;
-    QAction *actionAbout;
-    QAction *actionOpen;
-    QAction *actionPlay;
-    QAction* actionPause;
-    QAction *actionStop;
-    QAction *actionExit;
+    QAction *actionOpen, *actionPlay, *actionPause, *actionStop, *actionExit;
+    QAction *actionWebsite, *actionAbout;
+
     QWidget *centralwidget;
     QMenuBar *menubar;
-    QMenu *menuFiles;
-    QMenu *menuHelp;
+    QMenu *menuFiles, *menuHelp;
     QStatusBar *statusbar;
 
-    void setupUi(QMainWindow *MainWindow)
-    {
-        if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(538, 176);
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
-        MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setUnifiedTitleAndToolBarOnMac(false);
+    void setupUi(QMainWindow *MainWindow) {
+        centralwidget = new QWidget(MainWindow);
+        MainWindow->setCentralWidget(centralwidget);
 
-        actionVisit_Website = new QAction(QObject::tr("&Visit Website"), MainWindow);
-        actionVisit_Website->setObjectName(QString::fromUtf8("actionVisit_Website"));
+        /* 1. QMenuBar */
 
-        actionAbout = new QAction(QObject::tr("&About"), MainWindow);
-        actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
+        menubar = new QMenuBar(MainWindow);
+        MainWindow->setMenuBar(menubar);
+
+        /* 1.1. Files menu */
+
+        menuFiles = new QMenu(QObject::tr("&Files"), menubar);
+        menubar->addAction(menuFiles->menuAction());
 
         actionOpen = new QAction(QObject::tr("&Open"), MainWindow);
-        actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionOpen->setShortcuts(QKeySequence::Open);
+        menuFiles->addAction(actionOpen);
+
+        menuFiles->addSeparator();
 
         actionPlay = new QAction(QObject::tr("&Play"), MainWindow);
-        actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
         actionPlay->setShortcut(QKeySequence(Qt::Key_MediaPlay));
+        menuFiles->addAction(actionPlay);
 
         actionPause = new QAction(QObject::tr("P&ause"), MainWindow);
-        actionPause->setObjectName(QString::fromUtf8("actionPause"));
         actionPause->setShortcut(QKeySequence(Qt::Key_MediaPause));
+        menuFiles->addAction(actionPause);
 
         actionStop = new QAction(QObject::tr("&Stop"), MainWindow);
-        actionStop->setObjectName(QString::fromUtf8("actionStop"));
         actionStop->setShortcut(QKeySequence(Qt::Key_MediaStop));
-
-        actionExit = new QAction(QObject::tr("&Exit"), MainWindow);
-        actionExit->setObjectName(QString::fromUtf8("actionExit"));
-        actionExit->setShortcuts(QKeySequence::Quit);
-
-        centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 538, 22));
-        menubar->setDefaultUp(false);
-        menuFiles = new QMenu(menubar);
-        menuFiles->setObjectName(QString::fromUtf8("menuFiles"));
-        menuHelp = new QMenu(menubar);
-        menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        MainWindow->setStatusBar(statusbar);
-
-        menubar->addAction(menuFiles->menuAction());
-        menubar->addAction(menuHelp->menuAction());
-        menuFiles->addAction(actionOpen);
-        menuFiles->addSeparator();
-        menuFiles->addAction(actionPlay);
-        menuFiles->addAction(actionPause);
         menuFiles->addAction(actionStop);
+
         menuFiles->addSeparator();
+        actionExit = new QAction(QObject::tr("&Exit"), MainWindow);
+        actionExit->setShortcuts(QKeySequence::Quit);
         menuFiles->addAction(actionExit);
-        menuHelp->addSeparator();
-        menuHelp->addAction(actionVisit_Website);
-        menuHelp->addSeparator();
+
+        /* 1.1. End of files menu */
+        /* 1.2 Help menu */
+
+        menuHelp = new QMenu(QObject::tr("&Help"), menubar);
+        menubar->addAction(menuHelp->menuAction());
+
+        actionWebsite = new QAction(QObject::tr("&Visit Website"), MainWindow);
+        menuHelp->addAction(actionWebsite);
+
+        actionAbout = new QAction(QObject::tr("&About"), MainWindow);
         menuHelp->addAction(actionAbout);
 
-        retranslateUi(MainWindow);
+        /* 1.2 End of help menu */
+        /* 1. End of QMenuBar */
 
-        QMetaObject::connectSlotsByName(MainWindow);
+        retranslateUi(MainWindow);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
-    {
+    void retranslateUi(QMainWindow *MainWindow) {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MeowIDI", nullptr));
-        menuFiles->setTitle(QCoreApplication::translate("MainWindow", "&Files", nullptr));
-        menuHelp->setTitle(QCoreApplication::translate("MainWindow", "&Help", nullptr));
     } // retranslateUi
 
 };
 
-namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
 } // namespace Ui
-
-QT_END_NAMESPACE
-
-#endif // MAIN_WINDOWAVCHNC_H

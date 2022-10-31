@@ -18,6 +18,49 @@ MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent) {
 	ui.setupUi(this);
 
+	setupMidiPlayer();
+	setupSignals();
+}
+
+void MainWindow::setupSignals() {
+	QObject::connect(ui.actionOpen, &QAction::triggered, this, [this]() {
+		std::string fileName = QFileDialog::getOpenFileName(
+			this, "Open midi file", "/home", "Midi files (*.mid *.midi)"
+		).toStdString();
+
+		fluid_player_stop(player);
+		fluid_player_join(player);
+		player = new_fluid_player(synth);
+
+		if (!fileName.empty()) {
+			fluid_player_add(player, fileName.c_str());
+		}
+	});
+
+	QObject::connect(ui.actionPlay, &QAction::triggered, this, [this]() {
+		fluid_player_play(player);
+	});
+	QObject::connect(ui.actionPause, &QAction::triggered, this, [this]() {
+		fluid_player_stop(player);
+	});
+	QObject::connect(ui.actionStop, &QAction::triggered, this, [this]() {
+		fluid_player_stop(player);
+		fluid_player_seek(player, 0);
+	});
+
+	QObject::connect(ui.actionExit, &QAction::triggered, this, [this]() {
+		qApp->closeAllWindows();
+	});
+
+	QObject::connect(ui.actionWebsite, &QAction::triggered, this, [this]() {
+		QDesktopServices::openUrl(QUrl("https://github.com/PatriotRossii/MeowIDI"));
+	});
+	QObject::connect(ui.actionAbout, &QAction::triggered, this, [this]() {
+		QMessageBox::information(this, "About", "MeowIDI is an open-source midi player!");
+	});
+}
+
+void MainWindow::setupMidiPlayer() {
 	settings = new_fluid_settings();
 	synth = new_fluid_synth(settings);
 	player = new_fluid_player(synth);
@@ -30,45 +73,6 @@ MainWindow::MainWindow(QWidget *parent)
 			fluid_player_join(player);
 		}
 	}).detach();
-}
-
-void MainWindow::on_actionOpen_triggered() {
-	std::string fileName = QFileDialog::getOpenFileName(
-		this, "Open midi file", "/home", "Midi files (*.mid *.midi)"
-	).toStdString();
-
-	fluid_player_stop(player);
-	fluid_player_join(player);
-	player = new_fluid_player(synth);
-
-	if (!fileName.empty()) {
-		fluid_player_add(player, fileName.c_str());
-	}
-}
-
-void MainWindow::on_actionPlay_triggered() {
-	fluid_player_play(player);
-}
-
-void MainWindow::on_actionPause_triggered() {
-	fluid_player_stop(player);
-}
-
-void MainWindow::on_actionStop_triggered() {
-	fluid_player_stop(player);
-	fluid_player_seek(player, 0);
-}
-
-void MainWindow::on_actionExit_triggered() {
-	qApp->closeAllWindows();
-}
-
-void MainWindow::on_actionVisit_Website_triggered() {
-	QDesktopServices::openUrl(QUrl("https:\/\/github.com/PatriotRossii/MeowIDI"));
-}
-
-void MainWindow::on_actionAbout_triggered() {
-	QMessageBox::information(this, "About", "MeowIDI is an open-source midi player!");
 }
 
 MainWindow::~MainWindow() {
