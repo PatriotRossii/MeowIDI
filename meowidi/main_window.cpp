@@ -15,7 +15,7 @@
 #include <string>
 
 MainWindow::MainWindow(QWidget *parent)
-	: QMainWindow(parent), player("../assets/samples.sf2") {
+	: QMainWindow(parent), player("assets/samples.sf2") {
 	ui.setupUi(this);
 	setupSignals();
 }
