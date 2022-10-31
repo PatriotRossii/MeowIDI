@@ -30,6 +30,7 @@ public:
     QAction *actionAbout;
     QAction *actionOpen;
     QAction *actionPlay;
+    QAction* actionPause;
     QAction *actionStop;
     QAction *actionExit;
     QWidget *centralwidget;
@@ -64,6 +65,10 @@ public:
         actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
         actionPlay->setShortcut(QKeySequence(Qt::Key_MediaPlay));
 
+        actionPause = new QAction(QObject::tr("P&ause"), MainWindow);
+        actionPause->setObjectName(QString::fromUtf8("actionPause"));
+        actionPause->setShortcut(QKeySequence(Qt::Key_MediaPause));
+
         actionStop = new QAction(QObject::tr("&Stop"), MainWindow);
         actionStop->setObjectName(QString::fromUtf8("actionStop"));
         actionStop->setShortcut(QKeySequence(Qt::Key_MediaStop));
@@ -93,6 +98,7 @@ public:
         menuFiles->addAction(actionOpen);
         menuFiles->addSeparator();
         menuFiles->addAction(actionPlay);
+        menuFiles->addAction(actionPause);
         menuFiles->addAction(actionStop);
         menuFiles->addSeparator();
         menuFiles->addAction(actionExit);

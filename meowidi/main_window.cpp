@@ -50,6 +50,10 @@ void MainWindow::on_actionPlay_triggered() {
 	fluid_player_play(player);
 }
 
+void MainWindow::on_actionPause_triggered() {
+	fluid_player_stop(player);
+}
+
 void MainWindow::on_actionStop_triggered() {
 	fluid_player_stop(player);
 	fluid_player_seek(player, 0);
