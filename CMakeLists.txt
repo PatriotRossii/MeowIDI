@@ -16,6 +16,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 add_executable(meowidi
+	meowidi/midi_player.cpp
 	meowidi/main_window.cpp
 	meowidi/main.cpp
 )
