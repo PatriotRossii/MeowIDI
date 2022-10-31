@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::setupSignals() {
 	QObject::connect(ui.actionOpen, &QAction::triggered, this, [this]() {
 		std::string fileName = QFileDialog::getOpenFileName(
-			this, "Open midi file", "/home", "Midi files (*.mid *.midi)"
+			this, tr("Open midi file"), "/home", tr("Midi files (*.mid *.midi)")
 		).toStdString();
 
 		if (!fileName.empty()) {
@@ -44,6 +44,6 @@ void MainWindow::setupSignals() {
 		QDesktopServices::openUrl(QUrl("https://github.com/PatriotRossii/MeowIDI"));
 	});
 	QObject::connect(ui.actionAbout, &QAction::triggered, this, [this]() {
-		QMessageBox::information(this, "About", "MeowIDI is an open-source midi player!");
+		QMessageBox::information(this, tr("About"), tr("MeowIDI is an open-source midi player!"));
 	});
 }
