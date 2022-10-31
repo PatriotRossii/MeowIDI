@@ -26,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
 	driver = new_fluid_audio_driver(settings, synth);
 
 	std::thread([this]() {
-		fluid_player_join(player);
+		while(true) {
+			fluid_player_join(player);
+		}
 	}).detach();
 }
 
@@ -34,6 +36,11 @@ void MainWindow::on_actionOpen_triggered() {
 	std::string fileName = QFileDialog::getOpenFileName(
 		this, "Open midi file", "/home", "Midi files (*.mid *.midi)"
 	).toStdString();
+
+	fluid_player_stop(player);
+	fluid_player_join(player);
+	player = new_fluid_player(synth);
+
 	if (!fileName.empty()) {
 		fluid_player_add(player, fileName.c_str());
 	}
